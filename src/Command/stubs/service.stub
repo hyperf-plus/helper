@@ -1,0 +1,14 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Service;
+use App\Exception\ApiException;
+use App\Model\%CLASS% as %CLASS%Model;
+
+class %CLASS%Service
+{
+    public function create(array $data)
+    {
+       return %CLASS%Model::query()->create($data);
+    }
+}
