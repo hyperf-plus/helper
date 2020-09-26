@@ -4,7 +4,19 @@ hyperf-helper 工具助手，自动生成service、api控制器、验证器
 ```shell script
 composer require hyperf-plus/helper
 ```
+#模型方法自动提示
+````
+在基类注解上 @mixin \HyperfEloquent  即可实现自定提示，示例如下：
+/**
+ * @package HPlus\Admin\Model
+ * @mixin \HyperfEloquent #增加此注解，即可实现 User::where()->find()、(new User)->id 等等的自动提示
+ */
+abstract class Model extends BaseModel
+{
+    use Cacheable;
+}
 
+````
 #常用方法
 ````
 Redis()          #获取redis实例
