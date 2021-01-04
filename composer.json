@@ -10,12 +10,12 @@
   "support": {
   },
   "require": {
-    "php": ">=7.2",
-    "hyperf/utils": "~2.0.0",
-    "hyperf/command": "^2.0",
-    "hyperf/contract": "~2.0.0",
-    "hyperf/di": "~2.0.0",
-    "hyperf/devtool": "^2.0"
+    "php": ">=7.3",
+    "hyperf/command": "^2.1",
+    "hyperf/di": "~2.1.0"
+  },
+  "require-dev": {
+    "hyperf/devtool": "~2.1.0"
   },
   "autoload": {
     "psr-4": {
