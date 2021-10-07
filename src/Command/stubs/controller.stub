@@ -6,7 +6,7 @@ namespace %NAMESPACE%;
 use HPlus\Helper\Controller\AbstractBaseController;
 use HPlus\Route\Annotation\ApiController;
 use Hyperf\Di\Annotation\Inject;
-use HPlus\Swagger\Annotation\GetApi;
+use HPlus\Route\Annotation\GetApi;
 
 /**
  * @ApiController(tag="%TITLE%", description="%DESC%")
