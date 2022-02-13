@@ -20,6 +20,12 @@ class RunTime
         return ((float)$usec + (float)$sec);
     }
 
+    public static function microtime()
+    {
+        list($usec, $sec) = explode(' ', microtime());
+        return ((float)$usec + (float)$sec);
+    }
+
     function start()
     {
         $this->StartTime = $this->get_microtime();
@@ -28,6 +34,18 @@ class RunTime
     function stop()
     {
         $this->StopTime = $this->get_microtime();
+    }
+
+    public static function autoSpent(\Closure $callback, $count = 1000)
+    {
+        $startTime = self::microtime();
+        for ($i = 0; $i < $count; $i++) {
+            $res = $callback();
+        }
+        $endTime = self::microtime();
+        $spent = round(($endTime - $startTime) * 1000, 1);
+        p('当前执行' . $count . '次，用时：' . $spent . '毫秒');
+        return $res;
     }
 
     /**
