@@ -9,11 +9,13 @@
   ],
   "support": {
   },
+  "suggest": {
+    "hyperf/command": "*",
+    "hyperf/di": "*"
+  },
   "require": {
     "php": ">=7.3",
-    "hyperf/command": "^2.0.0",
-    "nette/php-generator": "^3.3",
-    "hyperf/di": "^2.0.0"
+    "nette/php-generator": "^3.3"
   },
   "require-dev": {
     "hyperf/devtool": "^2.0.0"
