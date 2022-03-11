@@ -9,6 +9,8 @@ use Hyperf\Utils\Context;
 use Psr\Http\Message\ServerRequestInterface;
 use Hyperf\Contract\SessionInterface;
 use Hyperf\Session\Session;
+use HPlus\Helper\DbHelper\QueryHelper;
+
 
 if (!function_exists('redis')) {
     /**
@@ -234,5 +236,19 @@ if (!function_exists('session_destroy')) {
         /** @var SessionInterface $session */
         $session = Context::get(SessionInterface::class);
         $session->clear();
+    }
+    if (!function_exists('page')) {
+        /**
+         * 分页查询助手.
+         *
+         * @param $query
+         * @param $data
+         *
+         * @return QueryHelper
+         */
+        function page($query, $data): QueryHelper
+        {
+            return (new QueryHelper())->setQuery($query)->setData($data);
+        }
     }
 }
