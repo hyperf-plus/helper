@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Redis\RedisFactory;
 use Hyperf\Utils\ApplicationContext;
-use Hyperf\Utils\Context;
+use Hyperf\Context\Context;
 use Psr\Http\Message\ServerRequestInterface;
 use Hyperf\Contract\SessionInterface;
 use Hyperf\Session\Session;
@@ -152,87 +152,5 @@ if (!function_exists('convert_hump')) {
             }
         }
         return $result;
-    }
-}
-
-if (!function_exists('session')) {
-    /**
-     * Session管理
-     * @param string $name session名称
-     * @param mixed $value session值
-     * @param bool $sessionId
-     * @return mixed
-     */
-    function session($name = '', $value = '', $sessionId = '')
-    {
-        if ($sessionId != '' && $sessionId !== true) {
-            $session = new Session(ApplicationContext::getContainer()->get(config('session.handler')), (string)$sessionId);
-            $session->set($name, $value);
-            Context::set(SessionInterface::class, $session);
-            return true;
-        }
-        /** @var SessionInterface $session */
-        $session = Context::get(SessionInterface::class);
-        switch (true) {
-            case empty($session):
-                return null;
-                break;
-            case is_null($name):
-                // 清除
-                $session->clear();
-                break;
-            case ('' === $name):
-                return $session->all();
-                break;
-            case is_null($value):
-                $session->remove($name);
-                break;
-            case '' === $value:
-                return 0 === strpos($name, '?') ? $session->has(substr($name, 1)) : $session->get($name);
-                break;
-            default:
-                $session->set($name, $value);
-                if ($sessionId === true) {
-                    $session->save();
-                }
-                break;
-        }
-    }
-}
-
-if (!function_exists('get_session')) {
-    /**
-     * Session管理
-     * @return mixed
-     */
-    function get_session(): ?SessionInterface
-    {
-        /** @var SessionInterface $session */
-        $session = Context::get(SessionInterface::class);
-        if (empty($session)) {
-            return null;
-        }
-        return $session;
-    }
-}
-
-if (!function_exists('session_destroy')) {
-    /**
-     * Session管理
-     * @param string $name session名称
-     * @param mixed $value session值
-     * @param bool $sessionId
-     * @return mixed
-     */
-    function session_destroy($sessionId = '')
-    {
-        if ($sessionId != '') {
-            $session = new Session(ApplicationContext::getContainer()->get(config('session.handler')), (string)$sessionId);
-            $session->clear();
-            return true;
-        }
-        /** @var SessionInterface $session */
-        $session = Context::get(SessionInterface::class);
-        $session->clear();
     }
 }
