@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Hyperf\Contract\SessionInterface;
 use Hyperf\Session\Session;
 use HPlus\Helper\DbHelper\QueryHelper;
+use Psr\SimpleCache\CacheInterface;
 
 if (!function_exists('redis')) {
     /**
@@ -168,5 +169,31 @@ if (!function_exists('page')) {
     function page($query, $data): QueryHelper
     {
         return (new QueryHelper())->setQuery($query)->setData($data);
+    }
+}
+
+
+if (!function_exists('cache')) {
+    function cache(): CacheInterface
+    {
+        return ApplicationContext::getContainer()->get(CacheInterface::class);
+    }
+}
+
+if (!function_exists('cache_has_set')) {
+    function cache_has_set(string $key, $callback, $tll = 3600)
+    {
+        $data = cache()->get($key);
+        if ($data || $data === false) {
+            return $data;
+        }
+        $data = call_user_func($callback);
+        if ($data === null) {
+            p('设置空缓存防止穿透');
+            cache()->set($key, false, 10);
+        } else {
+            cache()->set($key, $data, $tll);
+        }
+        return $data;
     }
 }
