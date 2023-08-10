@@ -197,3 +197,44 @@ if (!function_exists('cache_has_set')) {
         return $data;
     }
 }
+
+
+if (!function_exists('event_dispatch')) {
+    function event_dispatch(object $object)
+    {
+        ApplicationContext::getContainer()->get(EventDispatcherInterface::class)->dispatch($object);
+        return true;
+    }
+}
+
+if (!function_exists('array_filter_null')) {
+    function array_filter_null($arr, $empty_array = false)
+    {
+        return array_filter($arr, function ($item) use ($empty_array) {
+            if ($item === '' || $item === null || (is_array($item) && $empty_array && empty($item))) {
+                return false;
+            }
+            return true;
+        });
+    }
+}
+
+
+if (!function_exists('cache_clear_prefix')) {
+    function cache_clear_prefix($key)
+    {
+        /** @var CacheManager $manager */
+        $manager = ApplicationContext::getContainer()->get(CacheManager::class);
+        /** @var \Hyperf\Cache\Driver\RedisDriver $driver */
+        $driver = $manager->getDriver();
+        $driver->clearPrefix($key);
+    }
+}
+
+if (!function_exists('get_millisecond')) {
+    // 毫秒级时间戳
+    function get_millisecond()
+    {
+        return round(microtime(true) * 1000);
+    }
+}
