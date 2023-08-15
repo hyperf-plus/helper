@@ -2,15 +2,15 @@
 declare(strict_types=1);
 
 
+use Hyperf\Cache\CacheManager;
+use Hyperf\Context\ApplicationContext;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Redis\RedisFactory;
-use Hyperf\Utils\ApplicationContext;
 use Hyperf\Context\Context;
 use Psr\Http\Message\ServerRequestInterface;
-use Hyperf\Contract\SessionInterface;
-use Hyperf\Session\Session;
 use HPlus\Helper\DbHelper\QueryHelper;
 use Psr\SimpleCache\CacheInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 if (!function_exists('redis')) {
     /**
@@ -148,9 +148,9 @@ if (!function_exists('convert_hump')) {
         $result = [];
         foreach ($data as $key => $item) {
             if (is_array($item) || is_object($item)) {
-                $result[convert_hump($key)] = convert_hump((array)$item);
+                $result[convert_underline($key)] = convert_hump((array)$item);
             } else {
-                $result[convert_hump($key)] = $item;
+                $result[convert_underline($key)] = $item;
             }
         }
         return $result;
