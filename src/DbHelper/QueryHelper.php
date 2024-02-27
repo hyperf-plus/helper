@@ -69,7 +69,7 @@ class QueryHelper
         }
         if ($value === null) {
             unset($this->data[$key]);
-            return;
+            return $this;
         }
         $this->data[$key] = $value;
         return $this;
