@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace HPlus\Helper;
-
+use HPlus\Helper\Kernel\Model\ModelUpdateVisitor;
 
 class ConfigProvider
 {
@@ -11,6 +11,9 @@ class ConfigProvider
     {
         return [
             'commands' => [
+            ],
+            'dependencies'=>[
+                Hyperf\Database\Commands\Ast\ModelUpdateVisitor::class => ModelUpdateVisitor::class,
             ],
             'annotations' => [
                 'scan' => [
