@@ -18,7 +18,7 @@
     "nette/php-generator": "^3.3"
   },
   "require-dev": {
-    "hyperf/devtool": "^3.0.0"
+    "hyperf/devtool": "^3.1"
   },
   "autoload": {
     "psr-4": {
