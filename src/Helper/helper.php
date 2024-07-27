@@ -42,6 +42,11 @@ if (!function_exists('get_client_ip')) {
          * @var ServerRequestInterface $request
          */
         $request = Context::get(ServerRequestInterface::class);
+
+        if (empty($request)) {
+            return '0.0.0.0';
+        }
+        
         $ip_addr = $request->getHeaderLine('x-forwarded-for');
         if (verify_ip($ip_addr)) {
             return $ip_addr;
