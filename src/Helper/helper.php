@@ -185,6 +185,7 @@ if (!function_exists('cache')) {
     }
 }
 
+
 if (!function_exists('cache_has_set')) {
     function cache_has_set(string $key, $callback, $tll = 3600)
     {
@@ -192,7 +193,11 @@ if (!function_exists('cache_has_set')) {
         if ($data || $data === false) {
             return $data;
         }
-        $data = call_user_func($callback);
+        if ($callback instanceof Closure){
+            $data = call_user_func($callback);
+        }else{
+            $data = $callback;
+        }
         if ($data === null) {
             p('设置空缓存防止穿透');
             cache()->set($key, false, 10);
@@ -202,6 +207,8 @@ if (!function_exists('cache_has_set')) {
         return $data;
     }
 }
+
+
 
 
 if (!function_exists('event_dispatch')) {
