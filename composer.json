@@ -14,11 +14,11 @@
     "hyperf/di": "*"
   },
   "require": {
-    "php": ">=8.0",
-    "nette/php-generator": "^3.3"
+    "php": ">=8.0"
   },
   "require-dev": {
-    "hyperf/devtool": "^3.1"
+    "hyperf/devtool": "^3.1",
+    "nette/php-generator": "^3.3"
   },
   "autoload": {
     "psr-4": {
