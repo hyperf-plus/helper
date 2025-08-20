@@ -87,7 +87,7 @@ if (!function_exists('p')) {
     {
         print_r('[ ' . date("Y-m-d H:i:s") . ']:');
         if ($title != null) {
-            print_r("[" . $title . "]:");
+            print_r($title);
         }
         print_r($val);
         print_r("\r\n");
