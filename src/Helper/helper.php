@@ -11,6 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use HPlus\Helper\DbHelper\QueryHelper;
 use Psr\SimpleCache\CacheInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Carbon\Carbon;
 
 if (!function_exists('redis')) {
     /**
@@ -64,6 +65,15 @@ if (!function_exists('get_client_ip')) {
             return $ip_addr;
         }
         return '0.0.0.0';
+    }
+}
+
+
+
+if (!function_exists('now')) {
+    function now($tz = null)
+    {
+        return Carbon::now($tz);
     }
 }
 
