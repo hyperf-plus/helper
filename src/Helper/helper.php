@@ -96,8 +96,13 @@ if (!function_exists('p')) {
     function p($val, $title = null, $starttime = '')
     {
         print_r('[ ' . date("Y-m-d H:i:s") . ']:');
+
+        if (is_array($title)){
+            $title = json_encode($title,256);
+        }
+
         if ($title != null) {
-            print_r($title);
+            print_r("[" . $title . "]:");
         }
         print_r($val);
         print_r("\r\n");
